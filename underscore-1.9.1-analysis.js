@@ -30,10 +30,13 @@
     var previousUnderscore = root._;
   
     // Save bytes in the minified (but not gzipped) version:
+    // 这里也不理解 大概是缩短了变量名？
     var ArrayProto = Array.prototype, ObjProto = Object.prototype;
+    // ES6 新出的Symbol对象，这里应该是做一个向下兼容
     var SymbolProto = typeof Symbol !== 'undefined' ? Symbol.prototype : null;
   
     // Create quick reference variables for speed access to core prototypes.
+    // 缩短原型链上的查找 提高效率
     var push = ArrayProto.push,
         slice = ArrayProto.slice,
         toString = ObjProto.toString,
