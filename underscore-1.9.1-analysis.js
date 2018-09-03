@@ -26,6 +26,7 @@
               {};
   
     // Save the previous value of the `_` variable.
+    // 缓存一下 _ 的值，防止变量冲突
     var previousUnderscore = root._;
   
     // Save bytes in the minified (but not gzipped) version:
