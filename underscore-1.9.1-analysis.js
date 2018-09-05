@@ -1379,6 +1379,9 @@
   };
 
   // Is a given value a boolean?
+  /**
+   * 判断boolean类型值只要用toString方法即可满足，在此逻辑之前用=== true 与 === false 是为了提升性能
+   */
   _.isBoolean = function (obj) {
     return obj === true || obj === false || toString.call(obj) === '[object Boolean]';
   };
@@ -1389,12 +1392,18 @@
   };
 
   // Is a given variable undefined?
+ /**
+  * 利用void 0 去做undefined判断是 
+  * 1. void+任何表达式 返回结果为undefined
+  * 2. 防止undefined被改写
+  */
   _.isUndefined = function (obj) {
     return obj === void 0;
   };
 
   // Shortcut function for checking if an object has a given property directly
   // on itself (in other words, not on a prototype).
+  // 用于判断一个对象是否具有某属性，而不是在原型上
   _.has = function (obj, path) {
     if (!_.isArray(path)) {
       return has(obj, path);
