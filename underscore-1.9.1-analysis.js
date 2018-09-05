@@ -158,6 +158,11 @@
     return result;
   };
 
+  // 闭包 或者说 函数柯里化？ 由shallowProperty传递一个为属性名的参数
+  // 如果obj为一个对象的话(若无length属性) 返回undefined 
+  // 可能应该要对key为length做单独处理，应该去加一个判断obj是否为数组吧？
+  // shallowProperty用于返回某个属性值
+  // 如果obj为null的话 返回undefined属性
   var shallowProperty = function (key) {
     return function (obj) {
       return obj == null ? void 0 : obj[key];
@@ -177,13 +182,13 @@
     return length ? obj : void 0;
   };
 
-  // Helper for collection methods to determine whether a collection
-  // should be iterated as an array or as an object.
+  // Helper for collection methods to determine whether a collection 对于一些集合的帮助方法判断是否为一个集合
+  // should be iterated as an array or as an object. 应作为一个数组或一个对象迭代 
   // Related: http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength
   // Avoids a very nasty iOS 8 JIT bug on ARM-64. #2094
   var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
-  var getLength = shallowProperty('length');
-  var isArrayLike = function (collection) {
+  var getLength = shallowProperty('length'); // 这个逻辑我感觉不太严谨 可能一个对象也有length属性 但不能用所以访问
+  var isArrayLike = function (collection) { //判断是否为伪数组 arguments/DOM Selection 
     var length = getLength(collection);
     return typeof length == 'number' && length >= 0 && length <= MAX_ARRAY_INDEX;
   };
